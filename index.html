@@ -77,7 +77,8 @@
         ];
 
         let currentQuestionIndex = 0;
-        let correctAnswerCount = 0;
+        let point = new Array(12);
+        let names = ['베드로', '요한', '안드레', '야고보', '빌립', '마태', '도마', '작은야고보', '갸롯유다', '시몬', '3가지 이름을 가진 유다', '나다나엘']
 
         function displayQuestion() {
             const question = questions[currentQuestionIndex];
@@ -93,20 +94,13 @@
             const question = questions[currentQuestionIndex];
             const resultElement = document.getElementById('result');
 
-            if (answerIndex === question.correctAnswerIndex) {
-                resultElement.textContent = '정답입니다!';
-                correctAnswerCount++;
-            } else {
-                resultElement.textContent = '오답입니다!';
-            }
-
-            currentQuestionIndex++;
-
+            point[answerIndex]++;
             if (currentQuestionIndex < questions.length) {
                 displayQuestion();
             } else {
                 const percentage = (correctAnswerCount / questions.length) * 100;
-                resultElement.innerHTML = `퀴즈가 종료되었습니다. 정답 비율: ${percentage.toFixed(1)}%`;
+                const maxValue = Math.max(point);
+                resultElement.innerHTML = `당신과 가장 가까운 제자는 ${names[maxValue]} 입니다`;
                 disableAnswerButtons();
             }
         }
