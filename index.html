@@ -100,10 +100,11 @@
             point[answerIndex]++;
             if (currentQuestionIndex < questions.length) {
                 displayQuestion();
+                currentQuestionIndex++;
             } else {
                 const percentage = (correctAnswerCount / questions.length) * 100;
                 const maxValue = Math.max(point);
-                resultElement.innerHTML = `당신과 가장 가까운 제자는 입니다`;
+                resultElement.innerHTML = `당신과 가장 가까운 제자는 ${names[maxValue]} 입니다`;
                 disableAnswerButtons();
             }
         }
