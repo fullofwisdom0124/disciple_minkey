@@ -72,7 +72,10 @@
             {
                 question: '어떤 성향에 더 가깝다고 생각하십니까?',
                 answers: ['충성스러운', '관대한', '모험적인', '분석적인', '동정심이 넘치는'],
-                correctAnswerIndex: 1
+            },
+            {
+                question: '어떤 성향에 더 가깝다고 생각하십니까?',
+                answers: ['충성스러운', '관대한', '모험적인', '분석적인', '동정심이 넘치는'],
             },
         ];
 
@@ -100,7 +103,7 @@
             } else {
                 const percentage = (correctAnswerCount / questions.length) * 100;
                 const maxValue = Math.max(point);
-                resultElement.innerHTML = `당신과 가장 가까운 제자는 ${names[maxValue]} 입니다`;
+                resultElement.innerHTML = `당신과 가장 가까운 제자는 입니다`;
                 disableAnswerButtons();
             }
         }
