@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>하이닉스 방탈출 퀴즈</title>
+    <title>제자판독기</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,7 +54,7 @@
     </style>
 </head>
 <body>
-    <h1>하이닉스 방탈출 퀴즈</h1>
+    <h1>제자판독기</h1>
 
     <div class="question-container">
         <div class="question" id="question"></div>
@@ -70,21 +70,10 @@
     <script>
         const questions = [
             {
-                question: '하이닉스의 설립 연도는?',
-                answers: ['1983년', '1985년', '1988년', '1991년'],
+                question: '어떤 성향에 더 가깝다고 생각하십니까?',
+                answers: ['충성스러운', '관대한', '모험적인', '분석적인', '동정심이 넘치는'],
                 correctAnswerIndex: 1
             },
-            {
-                question: '하이닉스의 본사는 어느 나라에 위치해 있을까요?',
-                answers: ['미국', '일본', '대한민국', '중국'],
-                correctAnswerIndex: 2
-            },
-            {
-                question: '하이닉스가 제조하는 반도체 중 하나는?',
-                answers: ['스마트폰', '테이블트', '하드 디스크', '랜덤 액세스 메모리'],
-                correctAnswerIndex: 3
-            },
-            // 추가 질문들...
         ];
 
         let currentQuestionIndex = 0;
