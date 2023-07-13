@@ -1,58 +1,135 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>예수님의 12제자 설문조사</title>
-  <script>
-    // 제자들의 가중치 데이터
-    var weights = {
-      '배드로': [0.2, 0.4, 0.3, 0.1, 0.2, 0.4, 0.3, 0.1, 0.2, 0.4, 0.3, 0.1, 0.2, 0.4, 0.3, 0.1, 0.2, 0.4, 0.3, 0.1],
-      '요한': [0.5, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.2],
-      // 나머지 제자들의 가중치 배열
-    };
-
-    function calculateHighestWeightedDisciple() {
-      var highestWeight = 0;
-      var highestWeightedDisciple = '';
-
-      for (var disciple in weights) {
-        var totalWeight = weights[disciple].reduce((a, b) => a + b, 0);
-        if (totalWeight > highestWeight) {
-          highestWeight = totalWeight;
-          highestWeightedDisciple = disciple;
+    <title>하이닉스 방탈출 퀴즈</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            text-align: center;
         }
-      }
 
-      return highestWeightedDisciple;
-    }
+        h1 {
+            margin-top: 40px;
+        }
 
-    function submitSurvey() {
-      var answers = [];
-      var radios = document.querySelectorAll('input[type=radio]:checked');
+        .question-container {
+            background-color: #fff;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
 
-      radios.forEach(function(radio) {
-        var disciple = radio.getAttribute('data-disciple');
-        var questionIndex = radio.getAttribute('data-question-index');
-        var weight = weights[disciple][questionIndex];
-        answers.push(weight);
-      });
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
 
-      var highestDisciple = calculateHighestWeightedDisciple();
-      document.getElementById('result').textContent = '가장 가중치가 높은 제자: ' + highestDisciple;
-    }
-  </script>
+        .answer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .answer {
+            padding: 10px 20px;
+            background-color: #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .answer:hover {
+            background-color: #ccc;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-  <h1>예수님의 12제자 설문조사</h1>
-  <form>
-    <div>
-      <p>질문 1: 어떤 성향에 더 가깝다고 생각하십니까?</p>
-      <label><input type="radio" name="question1" data-disciple="배드로" data-question-index="0"> 충성스러운</label>
-      <label><input type="radio" name="question1" data-disciple="요한" data-question-index="0"> 관대한</label>
-      <!-- 나머지 선택지 -->
+    <h1>하이닉스 방탈출 퀴즈</h1>
+
+    <div class="question-container">
+        <div class="question" id="question"></div>
+        <div class="answer-container">
+            <div class="answer" onclick="checkAnswer(0)" id="answer0"></div>
+            <div class="answer" onclick="checkAnswer(1)" id="answer1"></div>
+            <div class="answer" onclick="checkAnswer(2)" id="answer2"></div>
+            <div class="answer" onclick="checkAnswer(3)" id="answer3"></div>
+        </div>
+        <div class="result" id="result"></div>
     </div>
-    <!-- 나머지 질문과 선택지 -->
-    <button type="button" onclick="submitSurvey()">설문조사 제출</button>
-  </form>
-  <div id="result"></div>
+
+    <script>
+        const questions = [
+            {
+                question: '하이닉스의 설립 연도는?',
+                answers: ['1983년', '1985년', '1988년', '1991년'],
+                correctAnswerIndex: 1
+            },
+            {
+                question: '하이닉스의 본사는 어느 나라에 위치해 있을까요?',
+                answers: ['미국', '일본', '대한민국', '중국'],
+                correctAnswerIndex: 2
+            },
+            {
+                question: '하이닉스가 제조하는 반도체 중 하나는?',
+                answers: ['스마트폰', '테이블트', '하드 디스크', '랜덤 액세스 메모리'],
+                correctAnswerIndex: 3
+            },
+            // 추가 질문들...
+        ];
+
+        let currentQuestionIndex = 0;
+        let correctAnswerCount = 0;
+
+        function displayQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('question').textContent = question.question;
+
+            const answerElements = document.getElementsByClassName('answer');
+            for (let i = 0; i < answerElements.length; i++) {
+                answerElements[i].textContent = question.answers[i];
+            }
+        }
+
+        function checkAnswer(answerIndex) {
+            const question = questions[currentQuestionIndex];
+            const resultElement = document.getElementById('result');
+
+            if (answerIndex === question.correctAnswerIndex) {
+                resultElement.textContent = '정답입니다!';
+                correctAnswerCount++;
+            } else {
+                resultElement.textContent = '오답입니다!';
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                const percentage = (correctAnswerCount / questions.length) * 100;
+                resultElement.innerHTML = `퀴즈가 종료되었습니다. 정답 비율: ${percentage.toFixed(1)}%`;
+                disableAnswerButtons();
+            }
+        }
+
+        function disableAnswerButtons() {
+            const answerElements = document.getElementsByClassName('answer');
+            for (let i = 0; i < answerElements.length; i++) {
+                answerElements[i].setAttribute('onclick', '');
+                answerElements[i].style.cursor = 'not-allowed';
+            }
+        }
+
+        displayQuestion();
+    </script>
 </body>
 </html>
