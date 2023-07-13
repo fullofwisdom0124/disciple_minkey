@@ -81,6 +81,14 @@
                 question: '어떤 방식으로 사람들에게 영감을 줄 수 있습니까?',
                 answers: ['신앙과 예배', '관심과 돌봄', '대담한 행동과 모험', '지식과 현명한 조언', '이해와 배려'],
             },
+            {
+                question: '어떤 역할을 더 자주 수행하십니까?',
+                answers: ['예수님의 가르침을 전파', '사람들을 변화시켜 돕고 위로', '모험적인 일을 통해 세상을 탐험', '지식과 지혜를 전달', '사회적인 문제에 봉사'],
+            },
+            {
+                question: '어떤 상황에서 가장 힘들게 느끼십니까?',
+                answers: ['믿음을 잃을 때', '다른 사람들의 고통을 보고 느낄 때', '일상적인 것에 지루함을 느낄 때', '지식이 부족한 상황에서', '사회적인 갈등이 있을 때'],
+            },
         ];
 
         let currentQuestionIndex = 0;
@@ -106,9 +114,8 @@
             if (currentQuestionIndex < questions.length) {
                 displayQuestion();
             } else {
-                const percentage = (correctAnswerCount / questions.length) * 100;
                 const maxValue = Math.max(point);
-                resultElement.innerHTML = `당신과 가장 가까운 제자는 ${names[maxValue]} 입니다`;
+                resultElement.innerHTML = `당신과 가장 가까운 제자는 배드로 입니다`;
                 disableAnswerButtons();
             }
         }
