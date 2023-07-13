@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>예수님의 12제자 설문조사</title>
+  <script>
+    // 제자들의 가중치 데이터
+    var weights = {
+      '배드로': [0.2, 0.4, 0.3, 0.1, 0.2, 0.4, 0.3, 0.1, 0.2, 0.4, 0.3, 0.1, 0.2, 0.4, 0.3, 0.1, 0.2, 0.4, 0.3, 0.1],
+      '요한': [0.5, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.2],
+      // 나머지 제자들의 가중치 배열
+    };
+
+    function calculateHighestWeightedDisciple() {
+      var highestWeight = 0;
+      var highestWeightedDisciple = '';
+
+      for (var disciple in weights) {
+        var totalWeight = weights[disciple].reduce((a, b) => a + b, 0);
+        if (totalWeight > highestWeight) {
+          highestWeight = totalWeight;
+          highestWeightedDisciple = disciple;
+        }
+      }
+
+      return highestWeightedDisciple;
+    }
+
+    function submitSurvey() {
+      var answers = [];
+      var radios = document.querySelectorAll('input[type=radio]:checked');
+
+      radios.forEach(function(radio) {
+        var disciple = radio.getAttribute('data-disciple');
+        var questionIndex = radio.getAttribute('data-question-index');
+        var weight = weights[disciple][questionIndex];
+        answers.push(weight);
+      });
+
+      var highestDisciple = calculateHighestWeightedDisciple();
+      document.getElementById('result').textContent = '가장 가중치가 높은 제자: ' + highestDisciple;
+    }
+  </script>
+</head>
+<body>
+  <h1>예수님의 12제자 설문조사</h1>
+  <form>
+    <div>
+      <p>질문 1: 어떤 성향에 더 가깝다고 생각하십니까?</p>
+      <label><input type="radio" name="question1" data-disciple="배드로" data-question-index="0"> 충성스러운</label>
+      <label><input type="radio" name="question1" data-disciple="요한" data-question-index="0"> 관대한</label>
+      <!-- 나머지 선택지 -->
+    </div>
+    <!-- 나머지 질문과 선택지 -->
+    <button type="button" onclick="submitSurvey()">설문조사 제출</button>
+  </form>
+  <div id="result"></div>
+</body>
+</html>
